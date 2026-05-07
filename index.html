@@ -211,6 +211,18 @@
     .form-row.cols-3 { grid-template-columns: 1fr 1fr; }
     .ring-wrap { gap: 14px; }
   }
+
+  /* MEAL SCAN */
+  .meal-scan-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .meal-scan-item:last-child { border-bottom: none; }
+  .meal-scan-check { width: 20px; height: 20px; accent-color: var(--accent); margin-top: 2px; flex-shrink: 0; cursor: pointer; }
+  .meal-scan-info { flex: 1; }
+  .meal-scan-name { font-size: 14px; font-weight: 600; }
+  .meal-scan-portion { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .meal-scan-macros { display: flex; gap: 10px; margin-top: 4px; font-size: 12px; }
+  .meal-scan-cal { font-size: 15px; font-weight: 700; color: var(--accent); text-align: right; white-space: nowrap; }
+  .spinner { width: 36px; height: 36px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .7s linear infinite; margin: 0 auto; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
@@ -332,11 +344,18 @@
   <div class="card">
     <div class="section-header">
       <h2>Add Food</h2>
-      <button class="btn btn-ghost btn-sm" onclick="openScanner()" style="display:flex;align-items:center;gap:6px;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="5" height="5" rx="1"/><rect x="16" y="3" width="5" height="5" rx="1"/><rect x="3" y="16" width="5" height="5" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></svg>
-        Scan Barcode
-      </button>
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-ghost btn-sm" onclick="openMealScan()" style="display:flex;align-items:center;gap:6px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          Scan Meal
+        </button>
+        <button class="btn btn-ghost btn-sm" onclick="openScanner()" style="display:flex;align-items:center;gap:6px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="5" height="5" rx="1"/><rect x="16" y="3" width="5" height="5" rx="1"/><rect x="3" y="16" width="5" height="5" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></svg>
+          Scan Barcode
+        </button>
+      </div>
     </div>
+    <input type="file" id="meal-photo-input" accept="image/*" capture="environment" style="display:none;" onchange="onMealPhotoSelected(event)">
     <div class="form-row">
       <div class="field">
         <label>Meal</label>
@@ -523,6 +542,59 @@
   </div>
 </div>
 
+<!-- MEAL SCAN MODAL -->
+<div id="meal-scan-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:600;align-items:flex-end;justify-content:center;">
+  <div style="background:#1a1a1a;border:1px solid #2e2e2e;border-radius:20px 20px 0 0;width:100%;max-width:680px;max-height:85vh;display:flex;flex-direction:column;padding-bottom:calc(0px + env(safe-area-inset-bottom));">
+    <div style="padding:20px 20px 0;">
+      <div style="width:36px;height:4px;background:#2e2e2e;border-radius:2px;margin:0 auto 16px;"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+        <div style="font-size:17px;font-weight:700;" id="meal-scan-title">Analysing Meal...</div>
+        <button onclick="closeMealScan()" style="background:rgba(255,255,255,0.08);border:none;color:#e5e5e5;border-radius:8px;padding:6px 12px;font-size:13px;cursor:pointer;">Cancel</button>
+      </div>
+    </div>
+
+    <!-- image preview strip -->
+    <div id="meal-scan-preview-wrap" style="padding:0 20px 12px;display:none;">
+      <img id="meal-scan-preview" src="" alt="" style="width:100%;max-height:180px;object-fit:cover;border-radius:10px;border:1px solid #2e2e2e;">
+    </div>
+
+    <!-- loading state -->
+    <div id="meal-scan-loading" style="padding:32px 20px;text-align:center;">
+      <div class="spinner"></div>
+      <div style="margin-top:12px;font-size:13px;color:#737373;">Claude is identifying your meal...</div>
+    </div>
+
+    <!-- results -->
+    <div id="meal-scan-results" style="display:none;flex:1;overflow-y:auto;padding:0 20px;">
+      <div style="font-size:12px;color:#737373;margin-bottom:8px;">Tick the items to add to your log</div>
+      <div id="meal-scan-items"></div>
+    </div>
+
+    <!-- error state -->
+    <div id="meal-scan-error" style="display:none;padding:24px 20px;text-align:center;">
+      <div style="font-size:32px;margin-bottom:8px;">⚠️</div>
+      <div id="meal-scan-error-msg" style="font-size:14px;color:#f87171;"></div>
+    </div>
+
+    <!-- footer actions -->
+    <div id="meal-scan-footer" style="display:none;padding:16px 20px;border-top:1px solid #2e2e2e;">
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:12px;">
+        <label style="font-size:12px;color:#737373;white-space:nowrap;">Add to meal:</label>
+        <select id="meal-scan-meal-select" style="background:#242424;border:1px solid #2e2e2e;color:#e5e5e5;border-radius:8px;padding:8px 10px;font-size:14px;flex:1;outline:none;">
+          <option value="Breakfast">Breakfast</option>
+          <option value="Lunch">Lunch</option>
+          <option value="Dinner">Dinner</option>
+          <option value="Snack">Snack</option>
+        </select>
+      </div>
+      <div style="display:flex;gap:10px;">
+        <button onclick="closeMealScan()" style="flex:1;padding:14px;background:#242424;border:1px solid #2e2e2e;color:#e5e5e5;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;">Cancel</button>
+        <button onclick="confirmMealScan()" style="flex:2;padding:14px;background:#4ade80;border:none;color:#000;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;">Add Selected to Log</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- MICROS -->
 <div class="page" id="page-micros">
   <div style="padding: 6px 0 16px;">
@@ -659,6 +731,19 @@
   </div>
 
   <div class="card">
+    <div class="card-title">AI Meal Scanning</div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:12px;">Add your Anthropic API key to enable photo meal recognition. Your key is stored locally on this device only.</p>
+    <div class="field" style="margin-bottom:10px;">
+      <label>Anthropic API Key</label>
+      <input type="password" id="goal-claude-key" placeholder="sk-ant-..." autocomplete="off">
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <button class="btn btn-primary btn-sm" onclick="saveClaudeKey()">Save Key</button>
+      <span id="claude-key-status" style="font-size:12px;color:var(--muted);"></span>
+    </div>
+  </div>
+
+  <div class="card">
     <div class="card-title">Custom Foods Database</div>
     <p style="font-size:13px;color:var(--muted);margin-bottom:12px;">Add foods you eat regularly so they appear in search.</p>
     <div class="form-row cols-2">
@@ -708,7 +793,7 @@ function loadState() {
     foodLog: {},     // {date: [{id,meal,name,cal,protein,carbs,fat}]}
     exerciseLog: {}, // {date: [{id,name,duration,type,cal}]}
     weightLog: [],   // [{date,val,unit}]
-    goals: { cal:2500, protein:180, carbs:300, fat:65, name:'Jackson', weightGoal:'', age:'', height:'', gender:'male', activity:'1.725' },
+    goals: { cal:2500, protein:180, carbs:300, fat:65, name:'Jackson', weightGoal:'', age:'', height:'', gender:'male', activity:'1.725', claudeApiKey:'' },
     dayTypes: {}, // {date: 'training'|'rest'|'refeed'}
     customFoods: []  // [{name,cal,protein,carbs,fat}]
   };
@@ -1353,6 +1438,8 @@ function loadGoalsForm() {
   document.getElementById('goal-height').value = g.height || '';
   document.getElementById('goal-gender').value = g.gender || 'male';
   document.getElementById('goal-activity').value = g.activity || '1.55';
+  document.getElementById('goal-claude-key').value = g.claudeApiKey ? '••••••••••••••••' : '';
+  if (g.claudeApiKey) document.getElementById('claude-key-status').textContent = 'Key saved ✓';
 }
 
 function saveGoals() {
@@ -1367,11 +1454,24 @@ function saveGoals() {
     height: document.getElementById('goal-height').value,
     gender: document.getElementById('goal-gender').value,
     activity: document.getElementById('goal-activity').value,
+    claudeApiKey: state.goals.claudeApiKey || '',
   };
   save();
   const btn = event.target;
   btn.textContent = 'Saved ✓';
   setTimeout(()=>btn.textContent='Save Goals', 1500);
+}
+
+function saveClaudeKey() {
+  const raw = document.getElementById('goal-claude-key').value.trim();
+  if (!raw || raw.startsWith('•')) return;
+  state.goals.claudeApiKey = raw;
+  save();
+  document.getElementById('goal-claude-key').value = '••••••••••••••••';
+  const status = document.getElementById('claude-key-status');
+  status.textContent = 'Key saved ✓';
+  status.style.color = 'var(--accent)';
+  setTimeout(() => { status.style.color = 'var(--muted)'; }, 2000);
 }
 
 function calcTDEE() {
@@ -1757,6 +1857,197 @@ document.addEventListener('DOMContentLoaded', ()=>{
   loadGoalsForm();
   renderAll();
 });
+
+// ─── MEAL PHOTO SCAN ─────────────────────────────────────────────────────────
+let _mealScanItems = [];
+
+function openMealScan() {
+  if (!state.goals.claudeApiKey) {
+    if (confirm('You need a Claude API key to use meal scanning.\nWould you like to go to Goals to add one?')) {
+      showPage('goals', document.querySelector('nav button:last-child'));
+    }
+    return;
+  }
+  document.getElementById('meal-photo-input').value = '';
+  document.getElementById('meal-photo-input').click();
+}
+
+async function onMealPhotoSelected(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  // Show modal in loading state
+  const modal = document.getElementById('meal-scan-modal');
+  modal.style.display = 'flex';
+  document.getElementById('meal-scan-title').textContent = 'Analysing Meal...';
+  document.getElementById('meal-scan-loading').style.display = 'block';
+  document.getElementById('meal-scan-results').style.display = 'none';
+  document.getElementById('meal-scan-error').style.display = 'none';
+  document.getElementById('meal-scan-footer').style.display = 'none';
+
+  // Show image preview
+  const previewWrap = document.getElementById('meal-scan-preview-wrap');
+  const previewImg = document.getElementById('meal-scan-preview');
+  const objectUrl = URL.createObjectURL(file);
+  previewImg.src = objectUrl;
+  previewWrap.style.display = 'block';
+
+  // Match current meal select to food page
+  const currentMeal = document.getElementById('food-meal').value;
+  document.getElementById('meal-scan-meal-select').value = currentMeal;
+
+  try {
+    const { base64, mimeType } = await readFileAsBase64(file);
+    const items = await analyseWithClaude(base64, mimeType);
+    _mealScanItems = items;
+    showMealScanResults(items);
+  } catch(err) {
+    document.getElementById('meal-scan-loading').style.display = 'none';
+    document.getElementById('meal-scan-error').style.display = 'block';
+    document.getElementById('meal-scan-error-msg').textContent = err.message || 'Failed to analyse image. Please try again.';
+  }
+}
+
+function readFileAsBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const dataUrl = e.target.result;
+      const [header, base64] = dataUrl.split(',');
+      const mimeType = header.match(/:(.*?);/)[1];
+      resolve({ base64, mimeType });
+    };
+    reader.onerror = () => reject(new Error('Could not read image file.'));
+    reader.readAsDataURL(file);
+  });
+}
+
+async function analyseWithClaude(base64, mimeType) {
+  const apiKey = state.goals.claudeApiKey;
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-calls': 'true',
+    },
+    body: JSON.stringify({
+      model: 'claude-opus-4-7',
+      max_tokens: 1024,
+      messages: [{
+        role: 'user',
+        content: [
+          {
+            type: 'image',
+            source: { type: 'base64', media_type: mimeType, data: base64 },
+          },
+          {
+            type: 'text',
+            text: `Analyse this meal photo carefully. Identify every food and drink item visible and estimate the nutrition for the portion shown.
+
+Reply with ONLY a JSON array — no other text, no markdown, no explanation:
+[
+  {"name":"Food name","portion":"e.g. 150g / 1 medium","cal":250,"protein":20,"carbs":15,"fat":8},
+  ...
+]
+
+Rules:
+- Be specific (e.g. "Grilled chicken breast" not "chicken")
+- Estimate for what is visible in the image
+- Include all sauces, dressings, drinks if visible
+- Use realistic UK/general nutritional values
+- cal, protein, carbs, fat must be numbers (integers or one decimal)`,
+          },
+        ],
+      }],
+    }),
+  });
+
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    const msg = err.error?.message || `API error ${res.status}`;
+    if (res.status === 401) throw new Error('Invalid API key. Check your key in Goals.');
+    throw new Error(msg);
+  }
+
+  const data = await res.json();
+  const text = data.content?.[0]?.text || '';
+  const match = text.match(/\[[\s\S]*\]/);
+  if (!match) throw new Error('Could not parse Claude\'s response. Try again.');
+  try {
+    return JSON.parse(match[0]);
+  } catch {
+    throw new Error('Could not parse meal data. Try again.');
+  }
+}
+
+function showMealScanResults(items) {
+  document.getElementById('meal-scan-loading').style.display = 'none';
+  document.getElementById('meal-scan-title').textContent = `Found ${items.length} item${items.length !== 1 ? 's' : ''}`;
+
+  const totalCal = items.reduce((s, i) => s + (+i.cal || 0), 0);
+
+  const html = items.map((item, idx) => `
+    <div class="meal-scan-item">
+      <input type="checkbox" class="meal-scan-check" id="msi-${idx}" checked>
+      <div class="meal-scan-info">
+        <div class="meal-scan-name">${item.name}</div>
+        <div class="meal-scan-portion">${item.portion || ''}</div>
+        <div class="meal-scan-macros">
+          <span style="color:var(--accent);">P ${item.protein}g</span>
+          <span style="color:var(--yellow);">C ${item.carbs}g</span>
+          <span style="color:var(--purple);">F ${item.fat}g</span>
+        </div>
+      </div>
+      <div class="meal-scan-cal">${item.cal} kcal</div>
+    </div>
+  `).join('');
+
+  document.getElementById('meal-scan-items').innerHTML = html +
+    `<div style="padding:12px 0;display:flex;justify-content:space-between;font-size:13px;font-weight:600;color:var(--muted);">
+      <span>Total (all items)</span><span style="color:var(--accent);">${totalCal} kcal</span>
+    </div>`;
+
+  document.getElementById('meal-scan-results').style.display = 'block';
+  document.getElementById('meal-scan-footer').style.display = 'block';
+}
+
+function confirmMealScan() {
+  const meal = document.getElementById('meal-scan-meal-select').value;
+  let added = 0;
+  _mealScanItems.forEach((item, idx) => {
+    const cb = document.getElementById(`msi-${idx}`);
+    if (cb && cb.checked) {
+      if (!state.foodLog[currentDate]) state.foodLog[currentDate] = [];
+      state.foodLog[currentDate].push({
+        id: Date.now() + idx,
+        meal,
+        name: item.name + (item.portion ? ` (${item.portion})` : ''),
+        cal: +item.cal || 0,
+        protein: +item.protein || 0,
+        carbs: +item.carbs || 0,
+        fat: +item.fat || 0,
+      });
+      added++;
+    }
+  });
+  save();
+  closeMealScan();
+  if (added > 0) {
+    renderAll();
+    showPage('food', document.querySelectorAll('nav button')[1]);
+  }
+}
+
+function closeMealScan() {
+  document.getElementById('meal-scan-modal').style.display = 'none';
+  const previewImg = document.getElementById('meal-scan-preview');
+  if (previewImg.src.startsWith('blob:')) URL.revokeObjectURL(previewImg.src);
+  previewImg.src = '';
+  _mealScanItems = [];
+  document.getElementById('meal-photo-input').value = '';
+}
 
 // ─── BARCODE SCANNER ─────────────────────────────────────────────────────────
 let _scanner = null;
