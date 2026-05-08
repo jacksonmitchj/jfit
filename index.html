@@ -150,6 +150,114 @@
   .mt10 { margin-top: 10px; }
   .flex-end { display: flex; justify-content: flex-end; }
 
+  /* ── PEPALOG / PEPTIDES TAB ── */
+  #page-peptides { --pl-accent:#7f77dd; --pl-accent2:#534ab7; --pl-teal:#1d9e75; --pl-teal2:#0f6e56; --pl-amber:#ef9f27; --pl-red:#e24b4a; --pl-muted2:#8a879f; --pl-border2:rgba(255,255,255,0.14); --pl-pill-bg:rgba(127,119,221,0.15); --pl-pill-teal:rgba(29,158,117,0.15); --pl-pill-amber:rgba(239,159,39,0.15); --pl-pill-red:rgba(226,75,74,0.15); }
+  .pl-nav { display:flex; gap:4px; margin-bottom:18px; background:var(--surface); border-radius:10px; padding:4px; border:1px solid var(--border); }
+  .pl-nav-btn { flex:1; padding:8px 6px; border:none; background:none; color:var(--muted); cursor:pointer; border-radius:7px; font-size:12px; font-weight:500; transition:all .15s; }
+  .pl-nav-btn.active { background:var(--pl-accent2); color:#fff; }
+  .pl-nav-btn:hover:not(.active) { color:var(--text); background:var(--surface2); }
+  .pl-tab { display:none; } .pl-tab.active { display:block; }
+  .pl-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:16px 18px; margin-bottom:14px; }
+  .pl-card-title { font-size:11px; text-transform:uppercase; letter-spacing:.8px; color:var(--muted); margin-bottom:12px; font-weight:600; }
+  .pl-metrics { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:14px; }
+  .pl-metric { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 14px; text-align:center; }
+  .pl-metric .val { font-size:22px; font-weight:700; line-height:1; margin-bottom:4px; }
+  .pl-metric .lbl { font-size:11px; color:var(--muted); }
+  .pl-col-accent { color:var(--pl-accent); } .pl-col-teal { color:var(--pl-teal); } .pl-col-amber { color:var(--pl-amber); } .pl-col-red { color:var(--pl-red); }
+  .pl-supply-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px; }
+  .pl-supply-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:14px 16px; }
+  .pl-supply-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px; }
+  .pl-supply-name { font-size:13px; font-weight:600; }
+  .pl-supply-warn { font-size:10px; padding:2px 7px; border-radius:4px; font-weight:700; }
+  .pl-warn-ok { background:var(--pl-pill-teal); color:#5dcaa5; }
+  .pl-warn-low { background:var(--pl-pill-amber); color:var(--pl-amber); }
+  .pl-warn-critical { background:var(--pl-pill-red); color:var(--pl-red); }
+  .pl-supply-remaining { font-size:22px; font-weight:700; margin-bottom:2px; }
+  .pl-supply-sub { font-size:11px; color:var(--muted); margin-bottom:10px; }
+  .pl-supply-bar { height:5px; background:var(--border); border-radius:3px; overflow:hidden; }
+  .pl-supply-fill { height:100%; border-radius:3px; transition:width .4s; }
+  .pl-fill-ok { background:var(--pl-teal); } .pl-fill-low { background:var(--pl-amber); } .pl-fill-critical { background:var(--pl-red); }
+  .pl-sched-row { display:flex; align-items:center; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--border); }
+  .pl-sched-row:last-child { border-bottom:none; }
+  .pl-sched-left { display:flex; align-items:center; gap:10px; }
+  .pl-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+  .pl-dot-accent { background:var(--pl-accent); } .pl-dot-teal { background:var(--pl-teal); } .pl-dot-off { background:var(--border); }
+  .pl-sched-name { font-weight:500; font-size:14px; }
+  .pl-sched-detail { font-size:12px; color:var(--muted); margin-top:2px; }
+  .pl-log-btn { background:none; border:1px solid var(--pl-border2); color:var(--text); padding:5px 12px; border-radius:6px; cursor:pointer; font-size:12px; font-weight:500; transition:all .15s; }
+  .pl-log-btn:hover { background:var(--pl-accent2); border-color:var(--pl-accent2); }
+  .pl-logged-tag { font-size:11px; color:var(--pl-teal); background:var(--pl-pill-teal); padding:3px 8px; border-radius:4px; font-weight:600; }
+  .pl-off-tag { font-size:11px; color:var(--muted); padding:3px 8px; border-radius:4px; }
+  .pl-dose-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+  .pl-dose-val { font-size:28px; font-weight:700; color:var(--pl-accent); }
+  .pl-dose-unit { font-size:14px; color:var(--muted); }
+  .pl-dose-sub { font-size:12px; color:var(--muted); margin-top:2px; }
+  .pl-dose-actions { display:flex; gap:8px; }
+  .pl-dose-btn { background:none; border:1px solid var(--pl-border2); color:var(--text); padding:6px 14px; border-radius:7px; cursor:pointer; font-size:13px; font-weight:500; transition:all .15s; }
+  .pl-dose-btn:hover { background:var(--surface2); }
+  .pl-dose-btn.primary { background:var(--pl-accent2); border-color:var(--pl-accent2); color:#fff; }
+  .pl-dose-btn.primary:hover { background:var(--pl-accent); }
+  .pl-progress-bar { height:4px; background:var(--border); border-radius:2px; margin-top:12px; overflow:hidden; }
+  .pl-progress-fill { height:100%; background:var(--pl-accent2); border-radius:2px; transition:width .4s; }
+  .pl-progress-label { display:flex; justify-content:space-between; font-size:11px; color:var(--muted); margin-top:6px; }
+  .pl-syringe-helper { background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:12px 14px; margin-top:14px; }
+  .pl-sh-title { font-size:11px; color:var(--muted); margin-bottom:8px; font-weight:600; text-transform:uppercase; letter-spacing:.5px; }
+  .pl-sh-val { font-size:20px; font-weight:700; color:var(--pl-accent); }
+  .pl-sh-desc { font-size:12px; color:var(--muted); margin-top:2px; }
+  .pl-cal-nav { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+  .pl-cal-nav-btn { background:none; border:1px solid var(--border); color:var(--text); padding:5px 12px; border-radius:6px; cursor:pointer; font-size:14px; }
+  .pl-cal-nav-btn:hover { background:var(--surface2); }
+  .pl-cal-month { font-size:15px; font-weight:600; }
+  .pl-cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
+  .pl-cal-header-day { text-align:center; font-size:10px; font-weight:600; color:var(--muted); padding:4px 0; text-transform:uppercase; }
+  .pl-cal-day { min-height:52px; border-radius:7px; border:1px solid var(--border); background:var(--surface2); padding:5px 4px; }
+  .pl-cal-day.today { border-color:var(--pl-accent2); }
+  .pl-cal-day.other-month { opacity:.3; } .pl-cal-day.future { opacity:.6; }
+  .pl-cal-day-num { font-size:11px; font-weight:600; margin-bottom:4px; color:var(--muted); }
+  .pl-cal-day.today .pl-cal-day-num { color:var(--pl-accent); }
+  .pl-cal-dots { display:flex; flex-wrap:wrap; gap:2px; }
+  .pl-cal-dot { width:6px; height:6px; border-radius:50%; }
+  .pl-cal-dot-reta { background:var(--pl-accent); } .pl-cal-dot-ghk { background:var(--pl-teal); }
+  .pl-cal-dot-missed { background:var(--pl-red); opacity:.7; } .pl-cal-dot-sched { background:var(--border); border:1px dashed var(--muted); }
+  .pl-cal-rest { font-size:8px; color:var(--muted); margin-top:2px; }
+  .pl-cal-legend { display:flex; gap:14px; flex-wrap:wrap; margin-top:12px; }
+  .pl-cal-legend-item { display:flex; align-items:center; gap:5px; font-size:11px; color:var(--muted); }
+  .pl-form-group { margin-bottom:14px; }
+  .pl-form-label { font-size:12px; color:var(--muted); margin-bottom:6px; display:block; font-weight:500; }
+  .pl-form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .pl-submit-btn { width:100%; background:var(--pl-accent2); border:none; color:#fff; padding:11px; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer; margin-top:4px; }
+  .pl-submit-btn:hover { background:var(--pl-accent); }
+  .pl-filter-row { display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap; }
+  .pl-filter-btn { background:none; border:1px solid var(--border); color:var(--muted); padding:5px 12px; border-radius:6px; cursor:pointer; font-size:12px; font-weight:500; transition:all .15s; }
+  .pl-filter-btn.active { background:var(--pl-accent2); border-color:var(--pl-accent2); color:#fff; }
+  .pl-hist-table { width:100%; border-collapse:collapse; table-layout:fixed; }
+  .pl-hist-table th { font-size:11px; text-transform:uppercase; letter-spacing:.5px; color:var(--muted); font-weight:600; text-align:left; padding:8px 10px; border-bottom:1px solid var(--border); }
+  .pl-hist-table td { padding:10px; border-bottom:1px solid var(--border); font-size:13px; vertical-align:middle; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .pl-hist-table tr:last-child td { border-bottom:none; }
+  .pl-hist-table tr:hover td { background:var(--surface2); }
+  .pl-badge { display:inline-block; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:600; }
+  .pl-badge-reta { background:var(--pl-pill-bg); color:#afa9ec; }
+  .pl-badge-ghk { background:var(--pl-pill-teal); color:#5dcaa5; }
+  .pl-badge-other { background:var(--pl-pill-amber); color:var(--pl-amber); }
+  .pl-del-btn { background:none; border:none; color:var(--muted); cursor:pointer; padding:2px 6px; border-radius:4px; font-size:16px; }
+  .pl-del-btn:hover { color:var(--pl-red); }
+  .pl-settings-section { margin-bottom:20px; }
+  .pl-settings-section h3 { font-size:12px; text-transform:uppercase; letter-spacing:.8px; color:var(--muted); margin-bottom:12px; font-weight:600; }
+  .pl-checkbox-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; }
+  .pl-day-check { display:flex; flex-direction:column; align-items:center; gap:6px; }
+  .pl-day-check label { font-size:11px; color:var(--muted); }
+  .pl-day-check input[type="checkbox"] { accent-color:var(--pl-accent); width:16px; height:16px; cursor:pointer; }
+  .pl-save-btn { background:var(--pl-teal2); border:none; color:#fff; padding:9px 20px; border-radius:7px; font-size:13px; font-weight:600; cursor:pointer; }
+  .pl-save-btn:hover { background:var(--pl-teal); }
+  .pl-upcoming-item { display:flex; align-items:center; gap:12px; padding:8px 0; border-bottom:1px solid var(--border); }
+  .pl-upcoming-item:last-child { border-bottom:none; }
+  .pl-upcoming-date { font-size:12px; color:var(--muted); min-width:80px; }
+  .pl-upcoming-dose { font-size:12px; color:var(--muted); margin-left:auto; }
+  .pl-toast { position:fixed; bottom:80px; left:50%; transform:translateX(-50%); background:var(--pl-teal2); color:#fff; padding:10px 20px; border-radius:8px; font-size:13px; font-weight:600; opacity:0; transition:opacity .2s; pointer-events:none; z-index:999; white-space:nowrap; }
+  .pl-toast.show { opacity:1; }
+  .pl-empty { text-align:center; color:var(--muted); padding:32px; font-size:13px; }
+  @media (max-width:500px) { .pl-form-row { grid-template-columns:1fr; } .pl-supply-grid { grid-template-columns:1fr; } }
+
   /* DAY TYPE BUTTONS */
   .day-type-btn { padding: 7px 18px; border-radius: 20px; border: 1px solid var(--border); background: var(--surface2); color: var(--muted); font-size: 12px; font-weight: 600; cursor: pointer; transition: all .2s; }
   .day-type-btn:hover { color: var(--text); border-color: var(--text); }
@@ -237,6 +345,10 @@
   <button onclick="showPage('weight',this)">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5z"/><path d="M3 21h18l-2-8H5z"/></svg>
     Weight
+  </button>
+  <button onclick="showPage('peptides',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 20H4a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2h3.93a2 2 0 0 1 1.66.9l.82 1.2a2 2 0 0 0 1.66.9H20a2 2 0 0 1 2 2v3"/><circle cx="18" cy="18" r="3"/><path d="m22 22-1.5-1.5"/></svg>
+    Peptides
   </button>
   <button onclick="showPage('micros',this)">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
@@ -537,6 +649,189 @@
     </div>
   </div>
 </div>
+
+<!-- PEPTIDES -->
+<div class="page" id="page-peptides">
+  <div style="padding:6px 0 16px;">
+    <h2 style="font-size:18px;font-weight:700;">Peptides</h2>
+  </div>
+  <div class="pl-nav">
+    <button class="pl-nav-btn active" onclick="plSwitchTab('dashboard',this)">Dashboard</button>
+    <button class="pl-nav-btn" onclick="plSwitchTab('log',this)">Log Dose</button>
+    <button class="pl-nav-btn" onclick="plSwitchTab('calendar',this)">Calendar</button>
+    <button class="pl-nav-btn" onclick="plSwitchTab('history',this)">History</button>
+    <button class="pl-nav-btn" onclick="plSwitchTab('settings',this)">Settings</button>
+  </div>
+
+  <!-- PL: DASHBOARD -->
+  <div id="pl-tab-dashboard" class="pl-tab active">
+    <div class="pl-metrics" id="pl-metrics-row"></div>
+    <div class="pl-supply-grid" id="pl-supply-grid"></div>
+    <div class="pl-card">
+      <div class="pl-card-title">Today's schedule</div>
+      <div id="pl-today-schedule"></div>
+    </div>
+    <div class="pl-card">
+      <div class="pl-card-title">Retatrutide — dose progression</div>
+      <div class="pl-dose-row">
+        <div>
+          <div><span class="pl-dose-val" id="pl-reta-dose-display">—</span> <span class="pl-dose-unit">mg / week</span></div>
+          <div class="pl-dose-sub" id="pl-reta-per-inj"></div>
+        </div>
+        <div class="pl-dose-actions">
+          <button class="pl-dose-btn" onclick="plAdjustRetaDose(-1)">− Step</button>
+          <button class="pl-dose-btn primary" onclick="plAdjustRetaDose(1)">+ Step ↑</button>
+        </div>
+      </div>
+      <div class="pl-progress-bar"><div class="pl-progress-fill" id="pl-reta-progress"></div></div>
+      <div class="pl-progress-label"><span id="pl-reta-prog-start"></span><span id="pl-reta-prog-end"></span></div>
+      <div class="pl-syringe-helper">
+        <div class="pl-sh-title">Syringe draw (per injection)</div>
+        <div class="pl-sh-val" id="pl-sh-units">—</div>
+        <div class="pl-sh-desc" id="pl-sh-desc">—</div>
+      </div>
+    </div>
+    <div class="pl-card">
+      <div class="pl-card-title">Upcoming injections</div>
+      <div id="pl-upcoming-list"></div>
+    </div>
+  </div>
+
+  <!-- PL: LOG -->
+  <div id="pl-tab-log" class="pl-tab">
+    <div class="pl-card">
+      <div class="pl-card-title">Log a dose</div>
+      <div class="pl-form-group">
+        <label class="pl-form-label">Peptide</label>
+        <select id="pl-log-peptide" onchange="plOnPeptideChange()">
+          <option value="retatrutide">Retatrutide</option>
+          <option value="ghk">GHK-Cu</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="pl-form-row">
+        <div class="pl-form-group"><label class="pl-form-label">Date</label><input type="date" id="pl-log-date"></div>
+        <div class="pl-form-group"><label class="pl-form-label">Time</label><input type="time" id="pl-log-time"></div>
+      </div>
+      <div class="pl-form-row">
+        <div class="pl-form-group"><label class="pl-form-label">Dose (mg)</label><input type="number" id="pl-log-dose" step="0.05" min="0" placeholder="0.25"></div>
+        <div class="pl-form-group"><label class="pl-form-label">Route</label>
+          <select id="pl-log-route"><option>SubQ</option><option>IM</option><option>Intranasal</option></select>
+        </div>
+      </div>
+      <div class="pl-form-group"><label class="pl-form-label">Notes (optional)</label><textarea id="pl-log-notes" placeholder="Side effects, site, mood..." style="resize:vertical;min-height:70px;"></textarea></div>
+      <button class="pl-submit-btn" onclick="plSubmitLog()">Log Dose</button>
+    </div>
+  </div>
+
+  <!-- PL: CALENDAR -->
+  <div id="pl-tab-calendar" class="pl-tab">
+    <div class="pl-card">
+      <div class="pl-cal-nav">
+        <button class="pl-cal-nav-btn" onclick="plChangeMonth(-1)">‹</button>
+        <span class="pl-cal-month" id="pl-cal-month-label"></span>
+        <button class="pl-cal-nav-btn" onclick="plChangeMonth(1)">›</button>
+      </div>
+      <div class="pl-cal-grid" id="pl-cal-grid"></div>
+      <div class="pl-cal-legend">
+        <div class="pl-cal-legend-item"><div class="pl-cal-dot pl-cal-dot-reta"></div> Reta logged</div>
+        <div class="pl-cal-legend-item"><div class="pl-cal-dot pl-cal-dot-ghk"></div> GHK logged</div>
+        <div class="pl-cal-legend-item"><div class="pl-cal-dot pl-cal-dot-missed"></div> Missed</div>
+        <div class="pl-cal-legend-item"><div class="pl-cal-dot pl-cal-dot-sched"></div> Scheduled (future)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PL: HISTORY -->
+  <div id="pl-tab-history" class="pl-tab">
+    <div class="pl-filter-row">
+      <button class="pl-filter-btn active" onclick="plSetFilter('all',this)">All</button>
+      <button class="pl-filter-btn" onclick="plSetFilter('retatrutide',this)">Retatrutide</button>
+      <button class="pl-filter-btn" onclick="plSetFilter('ghk',this)">GHK-Cu</button>
+      <button class="pl-filter-btn" onclick="plSetFilter('other',this)">Other</button>
+    </div>
+    <div class="pl-card" style="padding:0;overflow:hidden;">
+      <table class="pl-hist-table">
+        <thead><tr>
+          <th style="width:30%">Date / Time</th>
+          <th style="width:18%">Peptide</th>
+          <th style="width:10%">Dose</th>
+          <th style="width:12%">Route</th>
+          <th style="width:24%">Notes</th>
+          <th style="width:6%"></th>
+        </tr></thead>
+        <tbody id="pl-history-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- PL: SETTINGS -->
+  <div id="pl-tab-settings" class="pl-tab">
+    <div class="pl-card">
+      <div class="pl-settings-section">
+        <h3>Retatrutide</h3>
+        <div class="pl-form-row">
+          <div class="pl-form-group"><label class="pl-form-label">Current dose (mg/week)</label><input type="number" id="pl-s-reta-dose" step="0.25" min="0.25" max="12"></div>
+          <div class="pl-form-group"><label class="pl-form-label">Step size (mg)</label><input type="number" id="pl-s-reta-step" step="0.25" min="0.25" max="4"></div>
+        </div>
+        <div class="pl-form-row">
+          <div class="pl-form-group"><label class="pl-form-label">Target max dose (mg/week)</label><input type="number" id="pl-s-reta-max" step="0.5" min="0.5" max="24"></div>
+          <div class="pl-form-group"><label class="pl-form-label">Vial concentration (mg/ml)</label><input type="number" id="pl-s-reta-conc" step="0.5" min="0.5" max="10"></div>
+        </div>
+        <div class="pl-form-row">
+          <div class="pl-form-group"><label class="pl-form-label">Total stock (mg)</label><input type="number" id="pl-s-reta-stock" step="5" min="0" placeholder="50"></div>
+          <div class="pl-form-group"><label class="pl-form-label">Low stock warn at (mg)</label><input type="number" id="pl-s-reta-warn" step="5" min="0" placeholder="10"></div>
+        </div>
+        <div class="pl-form-group">
+          <label class="pl-form-label">Injection days</label>
+          <div class="pl-checkbox-grid">
+            <div class="pl-day-check"><label>Mon</label><input type="checkbox" data-day="1" class="pl-reta-day"></div>
+            <div class="pl-day-check"><label>Tue</label><input type="checkbox" data-day="2" class="pl-reta-day"></div>
+            <div class="pl-day-check"><label>Wed</label><input type="checkbox" data-day="3" class="pl-reta-day"></div>
+            <div class="pl-day-check"><label>Thu</label><input type="checkbox" data-day="4" class="pl-reta-day"></div>
+            <div class="pl-day-check"><label>Fri</label><input type="checkbox" data-day="5" class="pl-reta-day"></div>
+            <div class="pl-day-check"><label>Sat</label><input type="checkbox" data-day="6" class="pl-reta-day"></div>
+            <div class="pl-day-check"><label>Sun</label><input type="checkbox" data-day="0" class="pl-reta-day"></div>
+          </div>
+        </div>
+      </div>
+      <div class="pl-settings-section" style="border-top:1px solid var(--border);padding-top:18px;margin-top:6px;">
+        <h3>GHK-Cu</h3>
+        <div class="pl-form-row">
+          <div class="pl-form-group"><label class="pl-form-label">Daily dose (mg)</label><input type="number" id="pl-s-ghk-dose" step="0.5" min="0.5" max="20"></div>
+          <div class="pl-form-group"><label class="pl-form-label">Timing</label>
+            <select id="pl-s-ghk-timing"><option value="night">Night</option><option value="morning">Morning</option><option value="any">Any time</option></select>
+          </div>
+        </div>
+        <div class="pl-form-row">
+          <div class="pl-form-group"><label class="pl-form-label">Total stock (mg)</label><input type="number" id="pl-s-ghk-stock" step="50" min="0" placeholder="1000"></div>
+          <div class="pl-form-group"><label class="pl-form-label">Low stock warn at (mg)</label><input type="number" id="pl-s-ghk-warn" step="50" min="0" placeholder="100"></div>
+        </div>
+        <div class="pl-form-group">
+          <label class="pl-form-label">Off days (rest days)</label>
+          <div class="pl-checkbox-grid">
+            <div class="pl-day-check"><label>Mon</label><input type="checkbox" data-day="1" class="pl-ghk-off"></div>
+            <div class="pl-day-check"><label>Tue</label><input type="checkbox" data-day="2" class="pl-ghk-off"></div>
+            <div class="pl-day-check"><label>Wed</label><input type="checkbox" data-day="3" class="pl-ghk-off"></div>
+            <div class="pl-day-check"><label>Thu</label><input type="checkbox" data-day="4" class="pl-ghk-off"></div>
+            <div class="pl-day-check"><label>Fri</label><input type="checkbox" data-day="5" class="pl-ghk-off"></div>
+            <div class="pl-day-check"><label>Sat</label><input type="checkbox" data-day="6" class="pl-ghk-off"></div>
+            <div class="pl-day-check"><label>Sun</label><input type="checkbox" data-day="0" class="pl-ghk-off"></div>
+          </div>
+        </div>
+      </div>
+      <button class="pl-save-btn" onclick="plSaveSettings()">Save settings</button>
+    </div>
+    <div class="pl-card" style="margin-top:14px;">
+      <div class="pl-card-title">Data</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="pl-dose-btn" onclick="plExportData()">Export JSON</button>
+        <button class="pl-dose-btn" style="color:var(--pl-red);border-color:rgba(226,75,74,0.3);" onclick="plClearData()">Clear all data</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pl-toast" id="pl-toast"></div>
 
 <!-- MICROS -->
 <div class="page" id="page-micros">
@@ -1075,6 +1370,7 @@ function showPage(id, btn) {
   (btn || event.target).classList.add('active');
   window.scrollTo(0, 0);
   renderAll();
+  if (id === 'peptides') plRenderAll();
 }
 
 function changeDate(delta) {
@@ -2047,6 +2343,396 @@ function closeProductModal() {
   document.getElementById('product-modal').style.display = 'none';
   _scannedProduct = null;
 }
+
+// ─── PEPALOG / PEPTIDES ───────────────────────────────────────────────────────
+const PL_DAYS_SHORT = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const PL_DAY_FULL = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const PL_MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+const PL_DEFAULT_CONFIG = {
+  reta: { dose: 0.5, step: 0.5, max: 8, conc: 2, days: [3, 0], totalStock: 50, warnAt: 10 },
+  ghk:  { dose: 2, timing: 'night', offDays: [6, 0], totalStock: 1000, warnAt: 100 },
+  cycleStart: '2026-05-06'
+};
+
+function plLoadConfig() { try { return JSON.parse(localStorage.getItem('pepalog_cfg')) || PL_DEFAULT_CONFIG; } catch(e) { return PL_DEFAULT_CONFIG; } }
+function plSaveConfig(c) { localStorage.setItem('pepalog_cfg', JSON.stringify(c)); }
+function plLoadLogs()   { try { return JSON.parse(localStorage.getItem('pepalog_logs')) || []; } catch(e) { return []; } }
+function plSaveLogs(l)  { localStorage.setItem('pepalog_logs', JSON.stringify(l)); }
+
+let plConfig   = plLoadConfig();
+let plLogs     = plLoadLogs();
+let plHistFilter = 'all';
+let plCalYear  = new Date().getFullYear();
+let plCalMonth = new Date().getMonth();
+
+function plToday()      { return new Date().toISOString().split('T')[0]; }
+function plNowTime()    { return new Date().toTimeString().slice(0,5); }
+function plDateStr(d)   { return d.toISOString().split('T')[0]; }
+function plParseDate(s) { return new Date(s + 'T12:00:00'); }
+function plFormatDate(s){ return plParseDate(s).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); }
+function plFormatDateTime(d,t){ return plFormatDate(d) + (t ? ' · ' + t : ''); }
+function plIsRetaDay(n) { return plConfig.reta.days.includes(n); }
+function plIsGhkOff(n)  { return plConfig.ghk.offDays.includes(n); }
+function plTodayDN()    { return new Date().getDay(); }
+function plGetLogsFor(ds, peptide) { return plLogs.filter(l => l.date === ds && l.peptide === peptide); }
+function plLoggedToday(p){ return plLogs.some(l => l.date === plToday() && l.peptide === p); }
+function plCalcUnits(doseMg){ return ((doseMg / (plConfig.reta.conc || 2)) * 100).toFixed(1); }
+
+function plCalcRemaining(peptide) {
+  const used = plLogs.filter(l => l.peptide === peptide).reduce((s, l) => s + (parseFloat(l.dose) || 0), 0);
+  const total = peptide === 'retatrutide' ? (plConfig.reta.totalStock || 50) : (plConfig.ghk.totalStock || 1000);
+  return Math.max(0, total - used);
+}
+function plCalcDaysLeft(peptide) {
+  const rem = plCalcRemaining(peptide);
+  if (peptide === 'retatrutide') {
+    const perWeek = plConfig.reta.dose || 0.5;
+    return perWeek > 0 ? Math.floor((rem / perWeek) * 7) : 999;
+  } else {
+    const perDay = plConfig.ghk.dose || 2;
+    const onDays = 7 - (plConfig.ghk.offDays || []).length;
+    const weeklyUse = perDay * onDays;
+    return weeklyUse > 0 ? Math.floor((rem / weeklyUse) * 7) : 999;
+  }
+}
+function plSupplyStatus(peptide) {
+  const rem = plCalcRemaining(peptide);
+  const warnAt = peptide === 'retatrutide' ? (plConfig.reta.warnAt || 10) : (plConfig.ghk.warnAt || 100);
+  const total  = peptide === 'retatrutide' ? (plConfig.reta.totalStock || 50) : (plConfig.ghk.totalStock || 1000);
+  if (rem <= warnAt * 0.5) return 'critical';
+  if (rem <= warnAt) return 'low';
+  return 'ok';
+}
+
+function plRenderSupply() {
+  const el = document.getElementById('pl-supply-grid');
+  if (!el) return;
+  const peptides = [
+    { key:'retatrutide', label:'Retatrutide', vials:true },
+    { key:'ghk',         label:'GHK-Cu',      vials:false }
+  ];
+  el.innerHTML = peptides.map(p => {
+    const rem = plCalcRemaining(p.key);
+    const total = p.key === 'retatrutide' ? (plConfig.reta.totalStock || 50) : (plConfig.ghk.totalStock || 1000);
+    const daysLeft = plCalcDaysLeft(p.key);
+    const st = plSupplyStatus(p.key);
+    const pct = Math.min(100, (rem / total) * 100);
+    const warnLabel = st === 'ok' ? 'OK' : st === 'low' ? 'LOW' : 'CRITICAL';
+    const color = st === 'ok' ? 'var(--pl-teal)' : st === 'low' ? 'var(--pl-amber)' : 'var(--pl-red)';
+    const vialsLeft = p.vials ? ` · ${Math.ceil(rem / 5)} vials` : '';
+    return `<div class="pl-supply-card">
+      <div class="pl-supply-header">
+        <div class="pl-supply-name">${p.label}</div>
+        <span class="pl-supply-warn pl-warn-${st}">${warnLabel}</span>
+      </div>
+      <div class="pl-supply-remaining" style="color:${color}">${rem.toFixed(1)}<span style="font-size:14px;font-weight:400;color:var(--muted)">mg</span></div>
+      <div class="pl-supply-sub">${daysLeft} days left${vialsLeft}</div>
+      <div class="pl-supply-bar"><div class="pl-supply-fill pl-fill-${st}" style="width:${pct.toFixed(1)}%"></div></div>
+    </div>`;
+  }).join('');
+}
+
+function plRenderMetrics() {
+  const el = document.getElementById('pl-metrics-row');
+  if (!el) return;
+  const injCount = plLogs.filter(l => l.peptide === 'retatrutide').length;
+  const ghkCount = plLogs.filter(l => l.peptide === 'ghk').length;
+  const cycleStart = new Date((plConfig.cycleStart || '2026-05-06') + 'T12:00:00');
+  const weeks = Math.floor((new Date() - cycleStart) / (7 * 86400000));
+  el.innerHTML = `
+    <div class="pl-metric"><div class="val pl-col-accent">${injCount}</div><div class="lbl">Reta injections</div></div>
+    <div class="pl-metric"><div class="val pl-col-teal">${ghkCount}</div><div class="lbl">GHK doses</div></div>
+    <div class="pl-metric"><div class="val pl-col-amber">${Math.max(0, weeks)}</div><div class="lbl">Weeks on cycle</div></div>
+  `;
+}
+
+function plRenderTodaySchedule() {
+  const el = document.getElementById('pl-today-schedule');
+  if (!el) return;
+  const dn = plTodayDN();
+  const rows = [];
+  if (plIsRetaDay(dn)) {
+    const logged = plLoggedToday('retatrutide');
+    const perInj = (plConfig.reta.dose / Math.max(1, plConfig.reta.days.length)).toFixed(2);
+    rows.push(`<div class="pl-sched-row">
+      <div class="pl-sched-left"><div class="pl-dot pl-dot-accent"></div>
+        <div><div class="pl-sched-name">Retatrutide</div>
+        <div class="pl-sched-detail">${perInj}mg SubQ · draw to ${plCalcUnits(parseFloat(perInj))} units</div></div>
+      </div>
+      ${logged ? '<span class="pl-logged-tag">✓ Done</span>' : `<button class="pl-log-btn" onclick="plQuickLog('retatrutide',${perInj})">Log now</button>`}
+    </div>`);
+  }
+  if (!plIsGhkOff(dn)) {
+    const logged = plLoggedToday('ghk');
+    rows.push(`<div class="pl-sched-row">
+      <div class="pl-sched-left"><div class="pl-dot pl-dot-teal"></div>
+        <div><div class="pl-sched-name">GHK-Cu</div>
+        <div class="pl-sched-detail">${plConfig.ghk.dose}mg · ${plConfig.ghk.timing}</div></div>
+      </div>
+      ${logged ? '<span class="pl-logged-tag">✓ Done</span>' : `<button class="pl-log-btn" onclick="plQuickLog('ghk',${plConfig.ghk.dose})">Log now</button>`}
+    </div>`);
+  } else {
+    rows.push(`<div class="pl-sched-row">
+      <div class="pl-sched-left"><div class="pl-dot pl-dot-off"></div>
+        <div><div class="pl-sched-name">GHK-Cu</div><div class="pl-sched-detail">Rest day</div></div>
+      </div><span class="pl-off-tag">Off</span>
+    </div>`);
+  }
+  if (!plIsRetaDay(dn) && plIsGhkOff(dn)) {
+    rows.push(`<div style="color:var(--muted);font-size:13px;padding:12px 0;text-align:center;">Full rest day — nothing scheduled</div>`);
+  }
+  el.innerHTML = rows.join('');
+}
+
+function plRenderRetaDose() {
+  const dd = document.getElementById('pl-reta-dose-display');
+  if (!dd) return;
+  dd.textContent = plConfig.reta.dose.toFixed(2);
+  const perInj = (plConfig.reta.dose / Math.max(1, plConfig.reta.days.length)).toFixed(2);
+  document.getElementById('pl-reta-per-inj').textContent = `${perInj}mg per injection · ${plConfig.reta.days.length}x per week`;
+  const pct = Math.min(100, (plConfig.reta.dose / (plConfig.reta.max || 8)) * 100);
+  document.getElementById('pl-reta-progress').style.width = pct.toFixed(1) + '%';
+  document.getElementById('pl-reta-prog-start').textContent = 'Start 0.5mg';
+  document.getElementById('pl-reta-prog-end').textContent = `Target ${plConfig.reta.max || 8}mg`;
+  document.getElementById('pl-sh-units').textContent = plCalcUnits(parseFloat(perInj)) + ' units';
+  const conc = plConfig.reta.conc || 2;
+  document.getElementById('pl-sh-desc').textContent = `${perInj}mg ÷ ${conc}mg/ml = ${(parseFloat(perInj)/conc).toFixed(3)}ml on 100-unit syringe`;
+}
+
+function plAdjustRetaDose(dir) {
+  plConfig.reta.dose = Math.max(0.25, Math.round((plConfig.reta.dose + dir * (plConfig.reta.step || 0.5)) * 100) / 100);
+  plSaveConfig(plConfig); plRenderRetaDose(); plRenderSupply();
+  plShowToast(`Dose ${dir > 0 ? 'increased' : 'decreased'} to ${plConfig.reta.dose}mg/week`);
+}
+
+function plRenderUpcoming() {
+  const el = document.getElementById('pl-upcoming-list');
+  if (!el) return;
+  const items = [];
+  const now = new Date();
+  for (let i = 1; i <= 14; i++) {
+    const d = new Date(now); d.setDate(now.getDate() + i);
+    const dn = d.getDay(); const ds = plDateStr(d);
+    const lbl = i === 1 ? 'Tomorrow' : PL_DAY_FULL[dn] + ' ' + d.getDate();
+    if (plIsRetaDay(dn)) {
+      const perInj = (plConfig.reta.dose / Math.max(1, plConfig.reta.days.length)).toFixed(2);
+      items.push({ lbl, name:'Retatrutide', dose:`${perInj}mg`, cls:'pl-badge-reta' });
+    }
+    if (!plIsGhkOff(dn)) items.push({ lbl, name:'GHK-Cu', dose:`${plConfig.ghk.dose}mg`, cls:'pl-badge-ghk' });
+  }
+  el.innerHTML = items.slice(0, 6).map(it => `
+    <div class="pl-upcoming-item">
+      <div class="pl-upcoming-date">${it.lbl}</div>
+      <span class="pl-badge ${it.cls}">${it.name}</span>
+      <div class="pl-upcoming-dose">${it.dose}</div>
+    </div>`).join('') || '<div style="color:var(--muted);padding:10px 0;font-size:13px;">Nothing upcoming</div>';
+}
+
+function plChangeMonth(dir) {
+  plCalMonth += dir;
+  if (plCalMonth > 11) { plCalMonth = 0; plCalYear++; }
+  if (plCalMonth < 0)  { plCalMonth = 11; plCalYear--; }
+  plRenderCalendar();
+}
+
+function plRenderCalendar() {
+  const label = document.getElementById('pl-cal-month-label');
+  if (!label) return;
+  label.textContent = `${PL_MONTHS[plCalMonth]} ${plCalYear}`;
+  const grid = document.getElementById('pl-cal-grid');
+  const todayStr = plToday();
+  const todayDate = new Date();
+  const headers = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  let html = headers.map(h => `<div class="pl-cal-header-day">${h}</div>`).join('');
+  const firstDay = new Date(plCalYear, plCalMonth, 1);
+  const lastDay  = new Date(plCalYear, plCalMonth + 1, 0);
+  let startDow = (firstDay.getDay() + 6) % 7;
+  for (let i = 0; i < startDow; i++) {
+    const d = new Date(plCalYear, plCalMonth, 1 - (startDow - i));
+    html += plRenderCalDay(d, todayStr, todayDate, true);
+  }
+  for (let day = 1; day <= lastDay.getDate(); day++) {
+    html += plRenderCalDay(new Date(plCalYear, plCalMonth, day), todayStr, todayDate, false);
+  }
+  const remaining = 7 - ((startDow + lastDay.getDate()) % 7);
+  if (remaining < 7) {
+    for (let i = 1; i <= remaining; i++) {
+      html += plRenderCalDay(new Date(plCalYear, plCalMonth + 1, i), todayStr, todayDate, true);
+    }
+  }
+  grid.innerHTML = html;
+}
+
+function plRenderCalDay(d, todayStr, todayDate, otherMonth) {
+  const ds = plDateStr(d);
+  const dn = d.getDay();
+  const isFuture = d > todayDate && ds !== todayStr;
+  const isPast   = ds < todayStr;
+  const isToday  = ds === todayStr;
+  const retaLogged = plGetLogsFor(ds, 'retatrutide').length > 0;
+  const ghkLogged  = plGetLogsFor(ds, 'ghk').length > 0;
+  const retaSched  = plIsRetaDay(dn);
+  const ghkSched   = !plIsGhkOff(dn);
+  const retaMissed = isPast && retaSched && !retaLogged;
+  const ghkMissed  = isPast && ghkSched  && !ghkLogged;
+  const fullRest   = !retaSched && !ghkSched;
+  let cls = 'pl-cal-day';
+  if (isToday)    cls += ' today';
+  if (otherMonth) cls += ' other-month';
+  if (isFuture)   cls += ' future';
+  let dots = '';
+  if (retaLogged) dots += '<div class="pl-cal-dot pl-cal-dot-reta"></div>';
+  if (ghkLogged)  dots += '<div class="pl-cal-dot pl-cal-dot-ghk"></div>';
+  if (!otherMonth && isPast && retaMissed) dots += '<div class="pl-cal-dot pl-cal-dot-missed"></div>';
+  if (!otherMonth && isPast && ghkMissed)  dots += '<div class="pl-cal-dot pl-cal-dot-missed"></div>';
+  if (!otherMonth && isFuture && retaSched) dots += '<div class="pl-cal-dot pl-cal-dot-sched"></div>';
+  if (!otherMonth && isFuture && ghkSched)  dots += '<div class="pl-cal-dot pl-cal-dot-sched"></div>';
+  const restLabel = (!otherMonth && fullRest && !isFuture) ? '<div class="pl-cal-rest">rest</div>' : '';
+  return `<div class="${cls}">
+    <div class="pl-cal-day-num">${d.getDate()}</div>
+    <div class="pl-cal-dots">${dots}</div>
+    ${restLabel}
+  </div>`;
+}
+
+function plRenderHistory() {
+  const tbody = document.getElementById('pl-history-tbody');
+  if (!tbody) return;
+  let filtered = plHistFilter === 'all' ? [...plLogs].reverse() : [...plLogs].reverse().filter(l => l.peptide === plHistFilter);
+  if (!filtered.length) { tbody.innerHTML = `<tr><td colspan="6"><div class="pl-empty">No doses logged yet</div></td></tr>`; return; }
+  tbody.innerHTML = filtered.map(l => {
+    const bc = l.peptide === 'retatrutide' ? 'pl-badge-reta' : l.peptide === 'ghk' ? 'pl-badge-ghk' : 'pl-badge-other';
+    const pn = l.peptide === 'retatrutide' ? 'Retatrutide' : l.peptide === 'ghk' ? 'GHK-Cu' : l.peptide;
+    return `<tr>
+      <td>${plFormatDateTime(l.date, l.time)}</td>
+      <td><span class="pl-badge ${bc}">${pn}</span></td>
+      <td>${l.dose}mg</td>
+      <td>${l.route}</td>
+      <td style="color:var(--muted)">${l.notes || '—'}</td>
+      <td><button class="pl-del-btn" onclick="plDeleteLog('${l.id}')">×</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function plSetFilter(f, btn) {
+  plHistFilter = f;
+  document.querySelectorAll('#page-peptides .pl-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  plRenderHistory();
+}
+
+function plSubmitLog() {
+  const peptide = document.getElementById('pl-log-peptide').value;
+  const date    = document.getElementById('pl-log-date').value;
+  const time    = document.getElementById('pl-log-time').value;
+  const dose    = parseFloat(document.getElementById('pl-log-dose').value);
+  const route   = document.getElementById('pl-log-route').value;
+  const notes   = document.getElementById('pl-log-notes').value.trim();
+  if (!date || isNaN(dose)) { plShowToast('Fill in date and dose'); return; }
+  plLogs.push({ id: Date.now().toString(), peptide, date, time, dose, route, notes });
+  plSaveLogs(plLogs);
+  document.getElementById('pl-log-notes').value = '';
+  plShowToast('Dose logged!');
+  plRenderAll();
+}
+
+function plQuickLog(peptide, dose) {
+  plLogs.push({ id: Date.now().toString(), peptide, date: plToday(), time: plNowTime(), dose: parseFloat(dose), route: 'SubQ', notes: '' });
+  plSaveLogs(plLogs);
+  plShowToast(`${peptide === 'retatrutide' ? 'Retatrutide' : 'GHK-Cu'} logged!`);
+  plRenderAll();
+}
+
+function plDeleteLog(id) {
+  plLogs = plLogs.filter(l => l.id !== id);
+  plSaveLogs(plLogs); plRenderHistory(); plRenderAll();
+}
+
+function plOnPeptideChange() {
+  const p = document.getElementById('pl-log-peptide').value;
+  if (p === 'retatrutide') document.getElementById('pl-log-dose').value = (plConfig.reta.dose / Math.max(1, plConfig.reta.days.length)).toFixed(2);
+  else if (p === 'ghk') document.getElementById('pl-log-dose').value = plConfig.ghk.dose;
+  else document.getElementById('pl-log-dose').value = '';
+}
+
+function plLoadSettings() {
+  document.getElementById('pl-s-reta-dose').value  = plConfig.reta.dose;
+  document.getElementById('pl-s-reta-step').value  = plConfig.reta.step || 0.5;
+  document.getElementById('pl-s-reta-max').value   = plConfig.reta.max || 8;
+  document.getElementById('pl-s-reta-conc').value  = plConfig.reta.conc || 2;
+  document.getElementById('pl-s-reta-stock').value = plConfig.reta.totalStock || 50;
+  document.getElementById('pl-s-reta-warn').value  = plConfig.reta.warnAt || 10;
+  document.getElementById('pl-s-ghk-dose').value   = plConfig.ghk.dose;
+  document.getElementById('pl-s-ghk-timing').value = plConfig.ghk.timing || 'night';
+  document.getElementById('pl-s-ghk-stock').value  = plConfig.ghk.totalStock || 1000;
+  document.getElementById('pl-s-ghk-warn').value   = plConfig.ghk.warnAt || 100;
+  document.querySelectorAll('.pl-reta-day').forEach(cb => cb.checked = plConfig.reta.days.includes(parseInt(cb.dataset.day)));
+  document.querySelectorAll('.pl-ghk-off').forEach(cb  => cb.checked = plConfig.ghk.offDays.includes(parseInt(cb.dataset.day)));
+}
+
+function plSaveSettings() {
+  plConfig.reta.dose       = parseFloat(document.getElementById('pl-s-reta-dose').value)  || 0.5;
+  plConfig.reta.step       = parseFloat(document.getElementById('pl-s-reta-step').value)  || 0.5;
+  plConfig.reta.max        = parseFloat(document.getElementById('pl-s-reta-max').value)   || 8;
+  plConfig.reta.conc       = parseFloat(document.getElementById('pl-s-reta-conc').value)  || 2;
+  plConfig.reta.totalStock = parseFloat(document.getElementById('pl-s-reta-stock').value) || 50;
+  plConfig.reta.warnAt     = parseFloat(document.getElementById('pl-s-reta-warn').value)  || 10;
+  plConfig.ghk.dose        = parseFloat(document.getElementById('pl-s-ghk-dose').value)   || 2;
+  plConfig.ghk.timing      = document.getElementById('pl-s-ghk-timing').value;
+  plConfig.ghk.totalStock  = parseFloat(document.getElementById('pl-s-ghk-stock').value)  || 1000;
+  plConfig.ghk.warnAt      = parseFloat(document.getElementById('pl-s-ghk-warn').value)   || 100;
+  plConfig.reta.days    = Array.from(document.querySelectorAll('.pl-reta-day:checked')).map(cb => parseInt(cb.dataset.day));
+  plConfig.ghk.offDays  = Array.from(document.querySelectorAll('.pl-ghk-off:checked')).map(cb  => parseInt(cb.dataset.day));
+  plSaveConfig(plConfig); plShowToast('Settings saved!'); plRenderAll();
+}
+
+function plExportData() {
+  const blob = new Blob([JSON.stringify({config: plConfig, logs: plLogs}, null, 2)], {type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = 'pepalog-export.json'; a.click();
+}
+
+function plClearData() {
+  if (confirm('Clear ALL logged doses? Config will be kept.')) {
+    plLogs = []; plSaveLogs(plLogs); plRenderAll(); plShowToast('Logs cleared');
+  }
+}
+
+function plShowToast(msg) {
+  const el = document.getElementById('pl-toast');
+  if (!el) return;
+  el.textContent = msg; el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2200);
+}
+
+function plSwitchTab(name, btn) {
+  document.querySelectorAll('#page-peptides .pl-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('#page-peptides .pl-nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('pl-tab-' + name).classList.add('active');
+  btn.classList.add('active');
+  if (name === 'history')  plRenderHistory();
+  if (name === 'settings') plLoadSettings();
+  if (name === 'calendar') plRenderCalendar();
+  if (name === 'log') {
+    document.getElementById('pl-log-date').value = plToday();
+    document.getElementById('pl-log-time').value = plNowTime();
+    plOnPeptideChange();
+  }
+}
+
+function plRenderAll() {
+  plRenderMetrics(); plRenderSupply(); plRenderTodaySchedule(); plRenderRetaDose(); plRenderUpcoming();
+}
+
+// Initialise peptide log form defaults on page load
+(function plInit() {
+  const ld = document.getElementById('pl-log-date');
+  const lt = document.getElementById('pl-log-time');
+  if (ld) ld.value = plToday();
+  if (lt) lt.value = plNowTime();
+  plRenderAll();
+})();
 
 // ─── PWA ─────────────────────────────────────────────────────────────────────
 let _installPrompt = null;
