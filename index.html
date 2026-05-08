@@ -2215,17 +2215,31 @@ function openScanner() {
   document.getElementById('scanner-status').textContent = 'Searching for barcode...';
 
   _scanner = new Html5Qrcode('scanner-viewfinder');
+  const formatsToSupport = [
+    Html5QrcodeSupportedFormats.EAN_13,
+    Html5QrcodeSupportedFormats.EAN_8,
+    Html5QrcodeSupportedFormats.UPC_A,
+    Html5QrcodeSupportedFormats.UPC_E,
+    Html5QrcodeSupportedFormats.CODE_128,
+    Html5QrcodeSupportedFormats.CODE_39,
+    Html5QrcodeSupportedFormats.QR_CODE,
+  ];
   _scanner.start(
     { facingMode: 'environment' },
     {
       fps: 10,
       qrbox: { width: 260, height: 130 },
-      aspectRatio: window.innerHeight / window.innerWidth,
+      formatsToSupport,
     },
     onBarcodeScanned,
     () => {}
   ).catch(err => {
-    document.getElementById('scanner-status').textContent = 'Camera access denied. Please allow camera in your browser settings.';
+    const msg = err && err.toString().toLowerCase();
+    if (msg && msg.includes('permission')) {
+      document.getElementById('scanner-status').textContent = 'Camera permission denied. Go to your browser settings and allow camera access for this site, then try again.';
+    } else {
+      document.getElementById('scanner-status').textContent = 'Could not start camera. Make sure the site has camera permission and try again.';
+    }
   });
 }
 
